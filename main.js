@@ -9,6 +9,7 @@ function searched() {
     objectDetector = ml5.objectDetector('cocossd', modelLoaded);
     search = search.toLowerCase();
     document.getElementById("l1").innerHTML = "Status:Detecting Objects";
+    objectDetector.detect(video, gotResults);
 }
 
 function setup() {
@@ -58,7 +59,7 @@ function draw() {
             if (objects[i].label == search) {
                 document.getElementById("l2").innerHTML = search.toUpperCase() + " Found ";
 
-                if (object != objects[i].label) {
+                
                     synth = window.speechSynthesis;
 
                     speech = search + " Found";
@@ -66,14 +67,17 @@ function draw() {
                     utterThis = new SpeechSynthesisUtterance(speech);
 
                     synth.speak(utterThis);
-                }
+
+                    objectDetetctor.detect(gotResults);
+            
+                
 
 
 
             } else {
                 document.getElementById("l2").innerHTML = search.toUpperCase() + " not Found ";
             }
-            object = objects[i].label;
+            
         }
     }
 }
